@@ -3150,11 +3150,73 @@ var _elm_lang$core$Tuple$first = function (_p6) {
 	var _p7 = _p6;
 	return _p7._0;
 };
+var _vmchale$composition$Data_Composition$second = F2(
+	function (f, _p0) {
+		var _p1 = _p0;
+		return {
+			ctor: '_Tuple2',
+			_0: _p1._0,
+			_1: f(_p1._1)
+		};
+	});
+var _vmchale$composition$Data_Composition$first = F2(
+	function (f, _p2) {
+		var _p3 = _p2;
+		return {
+			ctor: '_Tuple2',
+			_0: f(_p3._0),
+			_1: _p3._1
+		};
+	});
+var _vmchale$composition$Data_Composition_ops = _vmchale$composition$Data_Composition_ops || {};
+_vmchale$composition$Data_Composition_ops['***'] = F3(
+	function (f, g, _p4) {
+		var _p5 = _p4;
+		return {
+			ctor: '_Tuple2',
+			_0: f(_p5._0),
+			_1: g(_p5._1)
+		};
+	});
+var _vmchale$composition$Data_Composition_ops = _vmchale$composition$Data_Composition_ops || {};
+_vmchale$composition$Data_Composition_ops['&&&'] = F3(
+	function (f, g, x) {
+		return {
+			ctor: '_Tuple2',
+			_0: f(x),
+			_1: g(x)
+		};
+	});
 var _vmchale$composition$Data_Composition_ops = _vmchale$composition$Data_Composition_ops || {};
 _vmchale$composition$Data_Composition_ops['.*'] = F4(
 	function (f, g, x, y) {
 		return f(
 			A2(g, x, y));
+	});
+var _vmchale$composition$Data_Composition_ops = _vmchale$composition$Data_Composition_ops || {};
+_vmchale$composition$Data_Composition_ops['$'] = F2(
+	function (f, x) {
+		return f(x);
+	});
+var _vmchale$composition$Data_Composition$on = F4(
+	function (op, f, a, b) {
+		return A2(
+			op,
+			f(a),
+			f(b));
+	});
+var _vmchale$composition$Data_Composition_ops = _vmchale$composition$Data_Composition_ops || {};
+_vmchale$composition$Data_Composition_ops['&'] = F2(
+	function (x, f) {
+		return f(x);
+	});
+var _vmchale$composition$Data_Composition_ops = _vmchale$composition$Data_Composition_ops || {};
+_vmchale$composition$Data_Composition_ops['.'] = F2(
+	function (f, g) {
+		return function (_p6) {
+			return f(
+				g(_p6));
+		};
 	});
 var Elm = {};
 Elm['Data'] = Elm['Data'] || {};
