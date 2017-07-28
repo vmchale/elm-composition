@@ -8,14 +8,24 @@ module Data.Composition exposing (..)
 
 @docs ($)
 
+@docs const
+
 
 # Common combinators
 
 @docs (.*)
 
+@docs (.**)
+
+@docs (.***)
+
 @docs on
 
 @docs (&)
+
+@docs (-$)
+
+@docs (-.*)
 
 
 # Arrows
@@ -27,6 +37,11 @@ module Data.Composition exposing (..)
 @docs first
 
 @docs second
+
+
+# Monads
+
+@docs (>=>)
 
 -}
 
@@ -47,6 +62,13 @@ infixr 9 .
 infixl 1 &
 
 
+{-| Return a constant
+-}
+const : a -> (b -> a)
+const x =
+    \y -> x
+
+
 {-| Precompose both inputs to a binary operator with some function
 -}
 on : (b -> b -> c) -> (a -> b) -> a -> a -> c
@@ -64,10 +86,42 @@ infixr 0 $
 
 {-| See type signature
 -}
+(-$) : (a -> b -> c) -> a -> b -> c
+(-$) f x y =
+    f x y
+infixr 0 -$
+
+
+{-| See type signature
+-}
 (.*) : (c -> d) -> (a -> b -> c) -> a -> b -> d
 (.*) f g x y =
     f (g x y)
 infixr 9 .*
+
+
+{-| Oedipus combinator
+-}
+(-.*) : (b -> c) -> (a -> c -> d) -> a -> b -> d
+(-.*) f g x y =
+    g x (f y)
+infixr 9 -.*
+
+
+{-| See type signature
+-}
+(.**) : (d -> e) -> (a -> b -> c -> d) -> a -> b -> c -> e
+(.**) f g x y z =
+    f (g x y z)
+infixr 9 .**
+
+
+{-| See type signature
+-}
+(.***) : (e -> f) -> (a -> b -> c -> d -> e) -> a -> b -> c -> d -> f
+(.***) f g w x y z =
+    f (g w x y z)
+infixr 9 .***
 
 
 {-| Combinator for arrows; essentially a limited form of what was proposed in John Hughes' *Generalising Monads to Arrows*
@@ -98,3 +152,11 @@ first f ( x, y ) =
 second : (c -> d) -> ( a, c ) -> ( a, d )
 second f ( x, y ) =
     ( x, f y )
+
+
+{-| Kliesli composition specialized to the monad `(-> c)`
+-}
+(>=>) : (a -> b -> c) -> ((b -> c) -> c) -> a -> c -> c
+(>=>) f g x y =
+    g (f x)
+infixr 1 >=>
