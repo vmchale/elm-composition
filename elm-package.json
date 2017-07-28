@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
     "summary": "Port of Haskell's composition package",
-    "repository": "https://github.com/vmchale/composition.git",
+    "repository": "https://github.com/vmchale/elm-composition.git",
     "license": "BSD3",
     "source-directories": [
         "src"
