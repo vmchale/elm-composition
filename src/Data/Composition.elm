@@ -38,11 +38,6 @@ module Data.Composition exposing (..)
 
 @docs second
 
-
-# Monads
-
-@docs (>=>)
-
 -}
 
 
@@ -152,11 +147,3 @@ first f ( x, y ) =
 second : (c -> d) -> ( a, c ) -> ( a, d )
 second f ( x, y ) =
     ( x, f y )
-
-
-{-| Kliesli composition specialized to the monad `(-> c)`
--}
-(>=>) : (a -> b -> c) -> ((b -> c) -> c) -> a -> c -> c
-(>=>) f g x y =
-    g (f x)
-infixr 1 >=>
